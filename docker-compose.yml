@@ -3,6 +3,9 @@ services:
 
     unbound-mailcow:
       image: mailcow/unbound:1.14
+      build:
+        context: data/Dockerfiles/unbound
+        dockerfile: Dockerfile
       environment:
         - TZ=${TZ}
       volumes:
@@ -59,6 +62,9 @@ services:
 
     clamd-mailcow:
       image: mailcow/clamd:1.41
+      build:
+        context: data/Dockerfiles/clamd
+        dockerfile: Dockerfile
       restart: always
       dns:
         - ${IPV4_NETWORK:-172.22.1}.254
@@ -74,6 +80,9 @@ services:
 
     rspamd-mailcow:
       image: mailcow/rspamd:1.79
+      build:
+        context: data/Dockerfiles/rspamd
+        dockerfile: Dockerfile
       stop_grace_period: 30s
       depends_on:
         - dovecot-mailcow
@@ -104,6 +113,9 @@ services:
 
     php-fpm-mailcow:
       image: mailcow/phpfpm:1.76
+      build:
+        context: data/Dockerfiles/phpfpm
+        dockerfile: Dockerfile
       command: "php-fpm -d date.timezone=${TZ} -d expose_php=0"
       depends_on:
         - redis-mailcow
@@ -164,6 +176,9 @@ services:
 
     sogo-mailcow:
       image: mailcow/sogo:1.101
+      build:
+        context: data/Dockerfiles/sogo
+        dockerfile: Dockerfile
       environment:
         - DBNAME=${DBNAME}
         - DBUSER=${DBUSER}
@@ -211,6 +226,9 @@ services:
 
     dovecot-mailcow:
       image: mailcow/dovecot:1.156
+      build:
+        context: data/Dockerfiles/dovecot
+        dockerfile: Dockerfile
       depends_on:
         - mysql-mailcow
       dns:
@@ -291,6 +309,9 @@ services:
 
     postfix-mailcow:
       image: mailcow/postfix:1.66
+      build:
+        context: data/Dockerfiles/postfix
+        dockerfile: Dockerfile
       depends_on:
         - mysql-mailcow
       volumes:
@@ -384,6 +405,9 @@ services:
       depends_on:
         - nginx-mailcow
       image: mailcow/acme:1.80
+      build:
+        context: data/Dockerfiles/acme
+        dockerfile: Dockerfile
       dns:
         - ${IPV4_NETWORK:-172.22.1}.254
       environment:
@@ -420,6 +444,9 @@ services:
 
     netfilter-mailcow:
       image: mailcow/netfilter:1.44
+      build:
+        context: data/Dockerfiles/netfilter
+        dockerfile: Dockerfile
       stop_grace_period: 30s
       depends_on:
         - dovecot-mailcow
@@ -443,6 +470,9 @@ services:
 
     watchdog-mailcow:
       image: mailcow/watchdog:1.94
+      build:
+        context: data/Dockerfiles/watchdog
+        dockerfile: Dockerfile
       # Debug
       #command: /watchdog.sh
       dns:
@@ -506,6 +536,9 @@ services:
 
     dockerapi-mailcow:
       image: mailcow/dockerapi:1.39
+      build:
+        context: data/Dockerfiles/dockerapi
+        dockerfile: Dockerfile
       security_opt:
         - label=disable
       restart: always
@@ -524,6 +557,9 @@ services:
 
     solr-mailcow:
       image: mailcow/solr:1.7
+      build:
+        context: data/Dockerfiles/solr
+        dockerfile: Dockerfile
       restart: always
       volumes:
         - solr-vol-1:/opt/solr/server/solr/dovecot-fts/data:Z
@@ -540,6 +576,9 @@ services:
 
     olefy-mailcow:
       image: mailcow/olefy:1.8
+      build:
+        context: data/Dockerfiles/olefy
+        dockerfile: Dockerfile
       restart: always
       environment:
         - TZ=${TZ}
@@ -557,7 +596,7 @@ services:
             - olefy
 
     ofelia-mailcow:
-      image: mcuadros/ofelia:latest
+      image: mcuadros/ofelia:development
       restart: always
       command: daemon --docker
         - TZ=${TZ}
