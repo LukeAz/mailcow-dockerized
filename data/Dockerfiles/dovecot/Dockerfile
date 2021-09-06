@@ -4,7 +4,7 @@ LABEL maintainer "Andre Peters <andre.peters@servercow.de>"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG DOVECOT=2.3.16
 ENV LC_ALL C
-ENV GOSU_VERSION 1.12
+ENV GOSU_VERSION 1.14
 
 # Add groups and users before installing Dovecot to not break compatibility
 RUN groupadd -g 5000 vmail \
@@ -78,6 +78,7 @@ RUN groupadd -g 5000 vmail \
   mariadb-client \
   procps \
   python3-pip \
+  python3-setuptools \
   redis-server \
   supervisor \
   syslog-ng \
@@ -92,7 +93,7 @@ RUN groupadd -g 5000 vmail \
   && echo "deb https://repo.dovecot.org/ce-${DOVECOT}/debian/buster buster main" > /etc/apt/sources.list.d/dovecot.list \
   && apt-get update \
   && apt-get -y --no-install-recommends install \
-  dovecot-lua \
+  dovecot-auth-lua \
   dovecot-managesieved \
   dovecot-sieve \
   dovecot-lmtpd \
