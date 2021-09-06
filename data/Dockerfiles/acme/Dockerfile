@@ -26,4 +26,4 @@ COPY expand6.sh /srv/expand6.sh
 
 RUN chmod +x /srv/*.sh
 
-CMD ["/sbin/tini", "-g", "--", "/srv/acme.sh"]
+CMD ["/srv/acme.sh"]
