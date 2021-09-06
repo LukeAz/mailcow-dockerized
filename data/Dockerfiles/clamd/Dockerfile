@@ -56,6 +56,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && rm -rf /tmp/* /var/tmp/*
 
 COPY clamd.sh ./
-COPY tini /sbin/tini
 
-CMD ["/sbin/tini", "-g", "--", "/clamd.sh"]
+CMD ["/clamd.sh"]
