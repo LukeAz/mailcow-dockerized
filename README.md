@@ -1,5 +1,18 @@
 # mailcow: dockerized - 🐮 + 🐋 = 💕
 
+## Fork Usage Guide
+PAY ATTENTION: Use this repository only if it is updated from the original.
+
+To install Mailcow you can use the guide on the official documentation: https://mailcow.github.io/mailcow-dockerized-docs/i_u_m_install/
+
+To install Mailcow on arm64:
+* follow the official guide up to and including section 4.
+* sudo docker-compose compose build
+* sudo docker-compose compose up -d
+
+
+WARNING: Maintenance of the repository will not be guaranteed. 
+
 ## Want to support mailcow?
 
 Please [consider a support contract with Servercow](https://www.servercow.de/mailcow?lang=en#support) to support further development. _We_ support _you_ while _you_ support _us_. :)
